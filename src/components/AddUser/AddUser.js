@@ -21,10 +21,27 @@ const AddUser = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (!username.trim().length || !age.trim().length) {
+    if (!username.trim().length && !age.trim().length) {
       setError({
         title: "invalid Input",
-        content: "Please Enter a Valid Name & Age",
+        content: "Please Enter a Valid Name & Age (Input Must Not Be Empty)",
+      });
+      console.log("active");
+      return;
+    }
+
+    if (!username.trim().length) {
+      setError({
+        title: "invalid Input",
+        content: "Please Enter a Valid Name (Input Must Not Be Empty)",
+      });
+      console.log("active");
+      return;
+    }
+    if (!age.trim().length) {
+      setError({
+        title: "invalid Input",
+        content: "Please Enter a Valid Age (Input Must Not Be Empty)",
       });
       console.log("active");
       return;
@@ -33,7 +50,7 @@ const AddUser = (props) => {
     if (+age < 1) {
       setError({
         title: "invalid Age",
-        content: "Please Enter a Valid Age",
+        content: "Please Enter a Valid Age (Positive Integer)",
       });
       return;
     }
