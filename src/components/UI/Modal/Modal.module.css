@@ -1,0 +1,52 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  width: 60rem;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.modal__header {
+  background-color: #00afdb;
+  padding: 1rem;
+  text-align: center;
+}
+
+.modal__header h2 {
+  font-size: 2rem;
+  color: #fff;
+  padding: 1rem;
+}
+
+.modal__content {
+  padding: 2rem 6rem;
+  text-align: center;
+}
+
+.modal__footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+/* 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
+} */

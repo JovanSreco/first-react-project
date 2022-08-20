@@ -1,13 +1,18 @@
 import React from "react";
-import UserListItem from "./UserListItem";
+import UsersListItem from "./UsersListItem";
+import Card from "../UI/Card/Card";
 import styles from "./UsersList.module.css";
 
 const UsersList = (props) => {
+  if (!props.items.length) {
+    return;
+  }
+
   return (
-    <section>
+    <Card className={styles["users-list"]}>
       <ul>
         {props.items.map((item) => (
-          <UserListItem
+          <UsersListItem
             key={item.id}
             id={item.id}
             username={item.username}
@@ -16,8 +21,15 @@ const UsersList = (props) => {
           />
         ))}
       </ul>
-    </section>
+    </Card>
   );
 };
 
+/*
+{props.users.map((item) => (
+  <li key={something}>
+    {user.name} ({user.age} years old)
+  </li>
+))}
+*/
 export default UsersList;

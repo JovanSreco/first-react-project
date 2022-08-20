@@ -1,0 +1,9 @@
+.users-list {
+  margin: 2rem auto;
+  width: 92%;
+  max-width: 50rem;
+}
+
+.users-list ul {
+  padding: 2rem;
+}
