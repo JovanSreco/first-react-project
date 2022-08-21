@@ -1,29 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card/Card";
 import Modal from "../UI/Modal/Modal";
 import Button from "../UI/Button/Button";
+import Wrapper from "../Helpers/Wrapper";
 
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [error, setError] = useState("");
-
-  const usernameChangeHandler = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const ageChangeHandler = (e) => {
-    setAge(e.target.value);
-  };
 
   const submitHandler = (e) => {
     e.preventDefault();
+    const username = nameInputRef.current.value;
+    const age = ageInputRef.current.value;
 
     if (!username.trim().length && !age.trim().length) {
       setError({
-        title: "invalid Input",
+        title: "Invalid Input",
         content: "Please Enter a Valid Name & Age (Input Must Not Be Empty)",
       });
       console.log("active");
@@ -32,7 +28,7 @@ const AddUser = (props) => {
 
     if (!username.trim().length) {
       setError({
-        title: "invalid Input",
+        title: "Invalid Input",
         content: "Please Enter a Valid Name (Input Must Not Be Empty)",
       });
       console.log("active");
@@ -40,7 +36,7 @@ const AddUser = (props) => {
     }
     if (!age.trim().length) {
       setError({
-        title: "invalid Input",
+        title: "Invalid Input",
         content: "Please Enter a Valid Age (Input Must Not Be Empty)",
       });
       console.log("active");
@@ -49,8 +45,16 @@ const AddUser = (props) => {
 
     if (+age < 1) {
       setError({
-        title: "invalid Age",
+        title: "Invalid Age",
         content: "Please Enter a Valid Age (Positive Integer)",
+      });
+      return;
+    }
+
+    if (+age > 120) {
+      setError({
+        title: "Invalid Age",
+        content: "Please Enter a Valid Age: Age can't be higher then 120",
       });
       return;
     }
@@ -62,8 +66,8 @@ const AddUser = (props) => {
     };
 
     props.onAddUser(userInfo);
-    setUsername("");
-    setAge("");
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
   };
 
   const closeModalHandler = () => {
@@ -71,7 +75,7 @@ const AddUser = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <Wrapper>
       {error && (
         <Modal
           onCloseModal={closeModalHandler}
@@ -83,28 +87,18 @@ const AddUser = (props) => {
         <form onSubmit={submitHandler}>
           <div className={styles.input__control}>
             <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={usernameChangeHandler}
-            ></input>
+            <input type="text" id="username" ref={nameInputRef}></input>
           </div>
           <div className={styles.input__control}>
             <label htmlFor="age">Age &#40;Years&#41;</label>
-            <input
-              type="number"
-              id="age"
-              value={age}
-              onChange={ageChangeHandler}
-            ></input>
+            <input type="number" id="age" ref={ageInputRef}></input>
           </div>
           <div className={styles.input__submit}>
             <Button type={"submit"}>Submit User</Button>
           </div>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
 
